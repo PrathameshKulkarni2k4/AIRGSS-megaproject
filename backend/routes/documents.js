@@ -1,0 +1,12 @@
+const router = require('express').Router();
+const ctrl = require('../controllers/documentController');
+const { protect, authorize } = require('../middleware/auth');
+const { upload } = require('../middleware/upload');
+router.use(protect);
+router.post('/request', ctrl.requestCertificate);
+router.post('/upload', upload.single('file'), ctrl.uploadDocument);
+router.get('/my', ctrl.getMyDocuments);
+router.get('/search', ctrl.searchDocuments);
+router.get('/', authorize('officer', 'admin'), ctrl.getAllDocuments);
+router.put('/:id/review', authorize('officer', 'admin'), ctrl.reviewDocument);
+module.exports = router;

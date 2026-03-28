@@ -1,0 +1,12 @@
+const router = require('express').Router();
+const ctrl = require('../controllers/adminController');
+const { protect, authorize } = require('../middleware/auth');
+router.use(protect, authorize('admin'));
+router.get('/dashboard', ctrl.getDashboardStats);
+router.get('/citizens', ctrl.getAllCitizens);
+router.put('/citizens/:id/role', ctrl.updateCitizenRole);
+router.get('/funds', ctrl.getFunds);
+router.post('/funds', ctrl.createFund);
+router.put('/funds/:id', ctrl.updateFund);
+router.get('/logs', ctrl.getActivityLogs);
+module.exports = router;

@@ -1,0 +1,12 @@
+const router = require('express').Router();
+const ctrl = require('../controllers/complaintController');
+const { protect, authorize } = require('../middleware/auth');
+const { upload } = require('../middleware/upload');
+router.use(protect);
+router.post('/', upload.array('attachments', 3), ctrl.createComplaint);
+router.get('/my', ctrl.getMyComplaints);
+router.get('/stats', ctrl.getStats);
+router.get('/', authorize('officer', 'admin'), ctrl.getAllComplaints);
+router.get('/:id', ctrl.getComplaintById);
+router.put('/:id/status', authorize('officer', 'admin'), ctrl.updateComplaintStatus);
+module.exports = router;

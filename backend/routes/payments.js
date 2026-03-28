@@ -1,0 +1,10 @@
+const router = require('express').Router();
+const ctrl = require('../controllers/paymentController');
+const { protect, authorize } = require('../middleware/auth');
+router.use(protect);
+router.post('/', ctrl.createPayment);
+router.post('/:id/process', ctrl.processPayment);
+router.get('/my', ctrl.getMyPayments);
+router.get('/', authorize('admin'), ctrl.getAllPayments);
+router.get('/:id', ctrl.getPaymentById);
+module.exports = router;
