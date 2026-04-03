@@ -46,7 +46,7 @@ exports.getAllComplaints = async (req, res) => {
     if (status) filter.status = status;
     if (category) filter.category = category;
     if (priority) filter.priority = priority;
-    if (req.user.role === 'officer') filter.assignedDepartment = req.user.department;
+    // if (req.user.role === 'officer') filter.assignedDepartment = req.user.department;
     
     const complaints = await Complaint.find(filter)
       .populate('citizenId', 'name email phone')
